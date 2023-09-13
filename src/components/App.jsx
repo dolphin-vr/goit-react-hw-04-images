@@ -39,6 +39,7 @@ export const App =()=> {
       }
     }
     getImages()
+  // eslint-disable-next-line
   }, [query.timeStamp, query.page]);
 
   useEffect(()=>scrollUp, [gallery, query.page]);

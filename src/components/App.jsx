@@ -7,7 +7,7 @@ import { Loader } from "./Loader/Loader";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Button } from "./Button/Button";
 import {EndGallery} from "./EndGallery/EndGallery"
-import Modal from "./Modal/Modal";
+import {Modal} from "./Modal/Modal";
 
 export const App =()=> {
   const [gallery, setGallery] = useState([]);
@@ -42,7 +42,7 @@ export const App =()=> {
   // eslint-disable-next-line
   }, [query.timeStamp, query.page]);
 
-  useEffect(()=>scrollUp, [gallery, query.page]);
+  useEffect(()=>scrollUp, [ query.page]);
 
   const handleChange = (ev) => {
     setQuery(prevQuery=>({...prevQuery, searchString: ev.target.value}));

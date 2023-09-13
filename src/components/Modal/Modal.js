@@ -1,39 +1,34 @@
-import React, { Component } from 'react';
+import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { BackDrop, CloseBtn, Content, Icon } from './Modal.styled';
 
 const modalRoot = document.querySelector('#modal-root');
 
-export default class Modal extends Component {
-  componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyDown);
-  }
+export const Modal = ({onClose, children})=> {
+  useEffect(() => {
+    const handleKeyDown = e => { if (e.code === 'Escape') { onClose() } };
+  
+    window.addEventListener('keydown', handleKeyDown);
 
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this.handleKeyDown);
-  }
-
-  handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      this.props.onClose();
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
     }
-  };
+    // eslint-disable-next-line
+  }, []);
 
-  handleBackdropClick = event => {
+  const handleBackdropClick = event => {
     if (event.currentTarget === event.target) {
-      this.props.onClose();
+      onClose();
     }
   };
 
-  render() {
     return createPortal(
-      <BackDrop onClick={this.handleBackdropClick}>
+      <BackDrop onClick={handleBackdropClick}>
         <Content>
-          <CloseBtn type='button' onClick={this.props.onClose}><Icon/></CloseBtn>
-          {this.props.children}
+          <CloseBtn type='button' onClick={onClose}><Icon/></CloseBtn>
+          {children}
         </Content>
       </BackDrop>,
       modalRoot
     );
-  }
 }

@@ -23,7 +23,7 @@ export const App =()=> {
   const [showModal, setShowModal] = useState(false);
   const [bigImgUrl, setBigImgUrl] = useState('');
 
-  useEffect((prevQuery) => {
+  useEffect(() => {
     if (query.timeStamp === null) return
     async function getImages(){
       try {
